@@ -1,15 +1,673 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CABB TAXI VIP</title>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="main.css">
+<style>
+/* ===== HERO ===== */
+.index-hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9rem 2rem 5rem;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(160deg, rgba(6,32,80,.88) 0%, rgba(10,42,94,.75) 100%),
+    url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80') center/cover no-repeat;
+  color: var(--white);
+}
+
+.index-hero::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: radial-gradient(ellipse at 65% 60%, rgba(245,166,35,.12) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+.hero-inner { position:relative; z-index:1; max-width:780px; width:100%; text-align:center; }
+
+.trip-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  background: rgba(245,166,35,.12);
+  border: 1px solid rgba(245,166,35,.3);
+  color: var(--gold-light);
+  font-size: .82rem;
+  font-weight: 600;
+  padding: .35rem 1rem;
+  border-radius: 50px;
+  margin-bottom: 1.25rem;
+}
+.trip-count { color: var(--gold); font-weight:800; }
+
+.hero-inner h1 {
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1.1rem;
+}
+.hero-inner h1 em { color:var(--gold); font-style:normal; }
+
+.hero-inner p {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  max-width: 540px;
+}
+
+/* Booking box */
+.booking-box {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(16px);
+  border-radius: 20px;
+  padding: 1.75rem 2rem;
+  max-width: 680px;
+}
+
+.booking-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 1rem;
+  align-items: end;
+}
+
+.booking-field { display:flex; flex-direction:column; gap:.3rem; }
+.booking-field label {
+  font-size: .75rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.55);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.booking-field input,
+.booking-field select {
+  padding: .65rem 1rem;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 10px;
+  color: var(--white);
+  font-family: 'Prompt',sans-serif;
+  font-size: .9rem;
+  outline: none;
+  transition: border-color .2s;
+}
+.booking-field input::placeholder { color: rgba(255,255,255,.4); }
+.booking-field input:focus,
+.booking-field select:focus { border-color: var(--gold); }
+.booking-field select option { background: var(--darker); }
+
+.booking-btn {
+  background: linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color: var(--darker);
+  border: none;
+  border-radius: 10px;
+  padding: .72rem 1.5rem;
+  font-family: 'Prompt',sans-serif;
+  font-weight: 800;
+  font-size: .9rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .25s;
+  box-shadow: 0 4px 16px rgba(245,166,35,.35);
+}
+.booking-btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,166,35,.45); }
+
+  /* ===== BOOKING WIDGET ===== */
+  .booking-widget {
+    background: linear-gradient(145deg, #f0f8ff 0%, #e8f4fd 50%, #ddeefa 100%);
+    border: 1px solid rgba(100,180,255,0.25);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: 28px;
+    padding: 0;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    animation: fadeInUp 0.7s ease 0.3s both;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.25), 0 0 0 1px rgba(100,180,255,0.2), inset 0 1px 0 rgba(255,255,255,0.8);
+  }
+
+  .booking-widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2rem 1.25rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    background: linear-gradient(180deg, rgba(100,180,255,0.12) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(100,180,255,0.2);
+  }
+
+  .trip-toggle {
+    display: flex;
+    gap: 0.3rem;
+    background: rgba(100,180,255,0.15);
+    border-radius: 100px;
+    padding: 0.3rem;
+    border: 1px solid rgba(100,180,255,0.25);
+  }
+
+  .trip-toggle label {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: rgba(10,42,94,0.55);
+    font-family: 'Prompt', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.45rem 1.2rem;
+    border-radius: 100px;
+    transition: all 0.25s;
+  }
+
+  .trip-toggle input[type="radio"] { display: none; }
+
+  .trip-toggle label:has(input:checked) {
+    background: linear-gradient(135deg, var(--gold) 0%, #E8940F 100%);
+    color: #062050;
+    font-weight: 800;
+    box-shadow: 0 4px 14px rgba(245,166,35,0.4);
+  }
+
+  .availability-note {
+    font-size: 0.72rem;
+    color: rgba(10,42,94,0.45);
+    line-height: 1.6;
+    max-width: 420px;
+    text-align: right;
+  }
+
+  .booking-divider { display: none; }
+
+  .booking-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 1.5rem 2rem 2rem;
+  }
+
+  .booking-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+  }
+
+  .booking-row .field-group {
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .booking-row-bottom {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-top: 0;
+  }
+
+  .booking-row-bottom .passenger-ctrl { flex: 1; }
+
+  .field-group { position: relative; }
+
+  .field-label {
+    font-family: 'Prompt', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #F5A623;
+    background: linear-gradient(90deg, #F5A623, #FFD166, #E8940F);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.5px;
+    text-transform: none;
+    margin-bottom: 0.4rem;
+    padding-left: 0.1rem;
+    text-align: left;
+    text-shadow: none;
+    filter: drop-shadow(0 1px 4px rgba(245,166,35,0.35));
+  }
+
+  .field-group select,
+  .field-group input {
+    width: 100%;
+    background: rgba(255,255,255,0.75);
+    border: 1.5px solid rgba(100,180,255,0.35);
+    color: #0a2a5e;
+    padding: 0.85rem 1rem 0.85rem 2.7rem;
+    border-radius: 14px;
+    font-family: 'Prompt', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .field-group input::placeholder { color: rgba(10,42,94,0.4); }
+
+  .field-group select:focus,
+  .field-group input:focus {
+    border-color: var(--gold);
+    background: rgba(245,166,35,0.06);
+    box-shadow: 0 0 0 3px rgba(245,166,35,0.15);
+    color: #0a2a5e;
+  }
+
+  .field-group option { background: #e8f4fd; color: #0a2a5e; }
+
+  .field-icon {
+    position: absolute;
+    left: 0.85rem;
+    bottom: 0.88rem;
+    font-size: 1rem;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.8;
+  }
+
+  .has-icon input,
+  .has-icon select { padding-left: 2.7rem; }
+
+  .swap-btn {
+    background: rgba(245,166,35,0.15);
+    border: 1.5px solid rgba(245,166,35,0.4);
+    color: var(--gold);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.25s;
+    flex-shrink: 0;
+    margin-bottom: 0;
+    box-shadow: 0 0 12px rgba(245,166,35,0.15);
+  }
+  .swap-btn:hover { background: var(--gold); color: var(--darker); transform: rotate(180deg); box-shadow: 0 4px 16px rgba(245,166,35,0.4); }
+
+  .passenger-ctrl {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #f0f5fb;
+    border: 1.5px solid #d0dce8;
+    border-radius: 14px;
+    padding: 0.6rem 1rem;
+    white-space: nowrap;
+    transition: border-color 0.2s;
+  }
+  .passenger-ctrl:hover { border-color: rgba(245,166,35,0.5); }
+
+  .passenger-ctrl button {
+    background: #dce8f5;
+    border: none;
+    color: var(--dark);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    line-height: 1;
+  }
+  .passenger-ctrl button:hover { background: var(--gold); color: var(--darker); }
+
+  .passenger-ctrl span {
+    color: var(--dark);
+    font-size: 0.82rem;
+    font-family: 'Prompt', sans-serif;
+    font-weight: 600;
+    min-width: 55px;
+    text-align: center;
+  }
+
+  .passenger-divider {
+    width: 1px;
+    height: 20px;
+    background: rgba(10,42,94,0.15);
+    margin: 0 0.25rem;
+  }
+
+  .search-btn {
+    background: linear-gradient(135deg, var(--gold) 0%, #E8940F 100%);
+    border: none;
+    color: #062050;
+    height: 56px;
+    padding: 0 2.5rem;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-family: 'Prompt', sans-serif;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+    box-shadow: 0 6px 24px rgba(245,166,35,0.5), 0 2px 8px rgba(0,0,0,0.2);
+    letter-spacing: 0.5px;
+  }
+  .search-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(245,166,35,0.65); }
+  .search-btn:active { transform: translateY(0); }
+  
+  /* ===== JOB TYPE CHIPS ===== */
+  .job-type-group {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .job-type-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    cursor: pointer;
+    padding: 0.55rem 1.25rem;
+    border-radius: 100px;
+    border: 1.5px solid rgba(100,180,255,0.3);
+    background: rgba(255,255,255,0.6);
+    font-family: 'Prompt', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(10,42,94,0.6);
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .job-type-chip input[type="checkbox"] { display: none; }
+  .job-type-chip:has(input:checked) {
+    background: linear-gradient(135deg, var(--gold) 0%, #E8940F 100%);
+    border-color: transparent;
+    color: #062050;
+    font-weight: 800;
+    box-shadow: 0 4px 14px rgba(245,166,35,0.4);
+  }
+  .job-type-chip:hover {
+    border-color: rgba(245,166,35,0.5);
+    color: rgba(10,42,94,0.9);
+  }
+
+  /* ===== FARE BOX ===== */
+  .fare-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.85rem 1.25rem;
+    border-radius: 14px;
+    border: 1.5px solid rgba(100,180,255,0.35);
+    font-family: 'Prompt', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    min-height: 50px;
+  }
+  .fare-box.fare-idle {
+    background: rgba(255,255,255,0.75);
+    color: rgba(10,42,94,0.4);
+  }
+  .fare-box.fare-loading {
+    background: rgba(245,166,35,0.08);
+    border-color: rgba(245,166,35,0.4);
+    color: rgba(10,42,94,0.7);
+  }
+  .fare-box.fare-ready {
+    background: linear-gradient(135deg, rgba(245,166,35,0.15) 0%, rgba(232,148,15,0.1) 100%);
+    border-color: rgba(245,166,35,0.4);
+    color: #0a2a5e;
+    box-shadow: 0 4px 20px rgba(245,166,35,0.15);
+  }
+  .fare-box.fare-ready #fare-icon { font-size: 1.1rem; }
+  .fare-amount {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 8px rgba(245,166,35,0.3);
+  }
+  .fare-detail {
+    font-size: 0.72rem;
+    opacity: 0.65;
+    margin-left: auto;
+    text-align: right;
+    line-height: 1.5;
+  }
+</style>
+
+<!-- Longdo Maps API v2 -->
+<script src="https://api.longdo.com/map/?key=8b1029ed8bb60d853019e416f381ae06" type="text/javascript"></script>
 </head>
 <body>
-    <h1>My First Heading</h1>
-    <p>My first paragraph.</p>
+
+    <nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo-link">
+      <span class="logo-text">CA<span>BB</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="travel.html">แค็บบ์พาเที่ยว</a></li>
+      <li><a href="services.html">บริการแค็บบ์</a></li>
+      <li><a href="join.html">ร่วมงานกับแค็บบ์</a></li>
+      <li><a href="story.html">เรื่องราวของแค็บบ์</a></li>
+      <li><a href="contact.html">ติดต่อแค็บบ์</a></li>
+      <li><a href="login.html" class="nav-cta">เข้าสู่ระบบ</a></li>
+    </ul>
+    <button class="menu-toggle" id="menuToggle" aria-label="เมนู">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="index-hero">
+    <div class="hero-inner">
+    <div class="trip-badge">
+      <i class="fa-solid fa-car-side"></i>
+      <span>ให้บริการแล้วกว่า <span class="trip-count">3,687,521</span> ทริป</span>
+    </div>
+    <h1>เดินทางสะดวก<br><em>ทุกที่ที่คุณอยากไป</em></h1>
+    <p class="hero-subtitle" id="heroSubtitle">จากต้นทางถึงปลายทาง เพราะคุณคือคนสำคัญของเร<br>ด้วยบริการ Cabb VIP</p>
+
+    <!-- Booking Widget -->
+    <div class="booking-widget">
+      <div class="booking-widget-header">
+        <div class="trip-toggle">
+          <label><input type="radio" name="trip" checked>✈️ Single Trip</label>
+        </div>
+        <p class="availability-note" style="font-size: 0.85rem;">ให้บริการในกรุงเทพฯ และปริมณฑล · พัทยา · หัวหิน · ชะอำ · ระยอง · กาญจนบุรี</p>
+      </div>
+      <div class="booking-divider"></div>
+      <div class="booking-fields">
+
+        <!-- Row 1: ประเภทงาน -->
+        <div class="booking-row" style="margin-bottom:0.75rem;">
+            <div style="width:100%;">
+                <div class="field-label" style="margin-bottom:0.5rem;">ประเภทงาน</div>
+                    <div class="job-type-group">
+                        <label class="job-type-chip">
+                        <input type="radio" id="jt-advance" name="jobtype" value="advance">
+                        <span>📅 จองรถล่วงหน้า</span>
+                        </label>
+                    </div>
+                </div>
+            <div class="field-group has-icon" style="flex:0 0 168px;">
+                <div class="field-label">วันที่เดินทาง</div>
+                    <span class="field-icon">📅</span>
+                    <div style="position:relative;display:block;" onclick="document.getElementById('booking-date-raw').showPicker()">
+                        <input type="date" id="booking-date-raw" style="position:absolute;opacity:0;width:100%;height:100%;top:0;left:0;cursor:pointer;z-index:3;pointer-events:all;" oninput="updateThaiDate(this)">
+                        <input type="text" id="booking-date" placeholder="วว/ดด/ปปปป" readonly style="cursor:pointer;width:100%;background:rgba(255,255,255,0.75);border:1.5px solid rgba(100,180,255,0.35);color:#0a2a5e;padding:0.85rem 1rem 0.85rem 2.7rem;border-radius:14px;font-family:Prompt,sans-serif;font-size:0.9rem;outline:none;pointer-events:none;">
+                    </div>
+                </div>
+                <div class="field-group has-icon" style="flex:0 0 140px;">
+                    <div class="field-label">เวลาเดินทาง</div>
+                    <span class="field-icon">🕐</span>
+                    <input type="time" value="12:00">
+                </div>
+            </div>
+        
+        <!-- Row 2: From / Swap / To -->
+        <div class="booking-row">
+          <div class="field-group has-icon" style="flex:1.2">
+            <div class="field-label">จุดรับ</div>
+            <span class="field-icon">📍</span>
+            <input type="text" id="origin-display" placeholder="เลือกจุดรับ" readonly style="cursor:pointer;" onclick="openMapModal('origin')">
+          </div>
+          <button class="swap-btn" title="สลับต้นทาง-ปลายทาง" onclick="swapLocations()">⇄</button>
+          <div class="field-group has-icon" style="flex:1.2">
+            <div class="field-label">จุดส่ง</div>
+            <span class="field-icon">🎯</span>
+            <input type="text" id="dest-display" placeholder="เลือกจุดส่ง" readonly style="cursor:pointer;" onclick="openMapModal('dest')">
+          </div>
+        </div>
+
+        <!-- Row 3: ค่าโดยสารโดยประมาณ -->
+        <div class="booking-row" style="margin-top:0.1rem;">
+          <div class="field-group" style="flex:1.2;">
+            <div class="field-label">ค่าโดยสารโดยประมาณ</div>
+            <div id="fare-box" class="fare-box fare-idle">
+              <span id="fare-icon">💰</span>
+              <span id="fare-text">เลือกต้นทางและปลายทางเพื่อคำนวณ</span>
+              <span id="fare-spinner" style="display:none;">⏳</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 4: ชื่อผู้โดยสาร + เบอร์โทร -->
+        <div class="booking-row" style="margin-top:0.75rem;">
+          <div class="field-group has-icon" style="flex:1.2;">
+            <div class="field-label">ชื่อผู้โดยสาร</div>
+            <span class="field-icon">👤</span>
+            <input type="text" id="pax-name" placeholder="กรอกชื่อ-นามสกุล">
+          </div>
+          <div class="field-group has-icon" style="flex:1;">
+            <div class="field-label">เบอร์โทรศัพท์</div>
+            <span class="field-icon">📞</span>
+            <input type="tel" id="pax-phone" placeholder="0xx-xxx-xxxx" maxlength="10" oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)" pattern="\d{10}" required>
+          </div>
+          <div class="field-group has-icon" style="flex:0 0 160px;">
+            <div class="field-label">จำนวนผู้โดยสาร</div>
+            <span class="field-icon">🧑‍🤝‍🧑</span>
+            <select id="pax-count" style="width:100%;background:rgba(255,255,255,0.75);border:1.5px solid rgba(100,180,255,0.35);color:#0a2a5e;padding:0.75rem 1rem 0.75rem 2.8rem;border-radius:14px;font-family:'Prompt',sans-serif;font-size:0.95rem;outline:none;appearance:none;cursor:pointer;transition:all 0.2s;"
+              onfocus="this.style.borderColor='var(--gold)';this.style.boxShadow='0 0 0 3px rgba(245,166,35,0.15)'"
+              onblur="this.style.borderColor='rgba(100,180,255,0.35)';this.style.boxShadow='none'">
+              <option value="1" style="background:#e8f4fd;color:#0a2a5e;">1 ท่าน</option>
+              <option value="2" style="background:#e8f4fd;color:#0a2a5e;">2 ท่าน</option>
+              <option value="3" style="background:#e8f4fd;color:#0a2a5e;">3 ท่าน</option>
+              <option value="4" style="background:#e8f4fd;color:#0a2a5e;">4 ท่าน</option>
+              <option value="5" style="background:#e8f4fd;color:#0a2a5e;">5 ท่าน</option>
+              <option value="6" style="background:#e8f4fd;color:#0a2a5e;">6 ท่าน</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Row 5: หมายเหตุ -->
+        <div class="booking-row" style="margin-top:0.1rem;">
+          <div class="field-group" style="flex:1;width:100%;">
+            <div class="field-label">หมายเหตุ</div>
+            <textarea id="booking-note" placeholder="ระบุรายละเอียดเพิ่มเติม..." rows="3"
+              style="width:100%;background:rgba(255,255,255,0.75);border:1.5px solid rgba(100,180,255,0.35);color:#0a2a5e;padding:0.85rem 1rem;border-radius:14px;font-family:'Prompt',sans-serif;font-size:0.9rem;outline:none;resize:none;transition:all 0.2s;"
+              onfocus="this.style.borderColor='var(--gold)';this.style.boxShadow='0 0 0 3px rgba(245,166,35,0.15)';this.style.background='rgba(245,166,35,0.06)'"
+              onblur="this.style.borderColor='rgba(100,180,255,0.35)';this.style.boxShadow='none';this.style.background='rgba(255,255,255,0.75)'"></textarea>
+          </div>
+        </div>
+
+        <div style="padding-top:0.75rem; display:flex; justify-content:center;">
+          <button class="search-btn" onclick="
+            var phone = document.getElementById('pax-phone').value;
+            if (phone.length < 10) {
+              document.getElementById('pax-phone').focus();
+              document.getElementById('pax-phone').style.borderColor = '#e63946';
+              document.getElementById('pax-phone').style.boxShadow = '0 0 0 3px rgba(230,57,70,0.2)';
+              alert('กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก');
+              return false;
+            }
+            document.getElementById('pax-phone').style.borderColor = '';
+            document.getElementById('pax-phone').style.boxShadow = '';
+          ">🔍 บันทึกการเดินทาง</button>
+        </div>
+
+      </div>
+    </div>
+</div>
+</section>
+
+<!-- MAP MODAL -->
+<div class="map-modal-overlay" id="mapModalOverlay">
+  <div class="map-modal-box">
+    <div class="map-modal-header">
+      <div class="map-modal-title" id="mapModalTitle">📍 เลือกจุดรับ</div>
+      <button class="map-modal-close" onclick="closeMapModal()">✕</button>
+    </div>
+    <div class="map-search-bar">
+      <input type="text" id="map-search-input" placeholder="ค้นหาสถานที่...">
+    </div>
+    <div id="map-canvas"></div>
+    <div class="map-confirm-bar">
+      <div class="map-selected-label" id="map-selected-label">ยังไม่ได้เลือกสถานที่</div>
+      <button class="map-confirm-btn" onclick="confirmMapLocation()">✔ ยืนยัน</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span class="footer-logo">CA<span>BB</span></span>
+      <p class="footer-tagline">บริการแท็กซี่วีไอพี London Black Cab<br>แบรนด์เดียวในไทยที่ถือครอง Official License</p>
+      <div class="social-row">
+        <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" class="social-btn" aria-label="LINE"><i class="fa-brands fa-line"></i></a>
+        <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="social-btn" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>เมนูหลัก</h4>
+      <ul>
+        <li><a href="travel.html">แค็บบ์พาเที่ยว</a></li>
+        <li><a href="services.html">บริการแค็บบ์</a></li>
+        <li><a href="join.html">ร่วมงานกับแค็บบ์</a></li>
+        <li><a href="story.html">เรื่องราวของแค็บบ์</a></li>
+        <li><a href="contact.html">ติดต่อแค็บบ์</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>ติดต่อ</h4>
+      <ul>
+        <li><a href="tel:020000000"><i class="fa-solid fa-phone"></i> 02-XXX-XXXX</a></li>
+        <li><a href="mailto:hello@cabb.co.th"><i class="fa-solid fa-envelope"></i> hello@cabb.co.th</a></li>
+        <li><a href="#"><i class="fa-solid fa-location-dot"></i> กรุงเทพฯ และปริมณฑล</a></li>
+        <li><a href="#"><i class="fa-solid fa-clock"></i> ทุกวัน 06:00–22:00</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 CABB Asia. สงวนลิขสิทธิ์ทั้งหมด</div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="กลับด้านบน">
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
+<script src="main.js"></script>
 </body>
 </html>

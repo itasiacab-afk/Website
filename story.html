@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เรื่องราวของแค็บบ์ — CABB</title>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="main.css">
+<style>
+/* ===== HERO ===== */
+.story-hero {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  padding: 9rem 2rem 5rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg,#062050 0%,#0d3a6e 60%,#1a2e5e 100%);
+  color: var(--white);
+}
+.story-hero::before {
+  content:'';
+  position:absolute;
+  top:-80px; right:-80px;
+  width:480px; height:480px;
+  background: radial-gradient(circle, rgba(245,166,35,.12) 0%, transparent 70%);
+  pointer-events:none;
+}
+.story-hero::after {
+  content:'';
+  position:absolute;
+  bottom:-60px; left:10%;
+  width:320px; height:320px;
+  background: radial-gradient(circle, rgba(41,182,246,.08) 0%, transparent 70%);
+  pointer-events:none;
+}
+
+/* ===== BRAND CARD ===== */
+.brand-card {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(245,166,35,.2);
+  border-radius: 24px;
+  padding: 2.5rem 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.brand-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -2px;
+  line-height: 1;
+  margin-bottom: .5rem;
+}
+.brand-title span { color: var(--gold); }
+
+.brand-sub {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.license-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  background: linear-gradient(135deg,rgba(245,166,35,.15),rgba(245,166,35,.08));
+  border: 1px solid rgba(245,166,35,.35);
+  color: var(--gold-light);
+  font-size: .82rem;
+  font-weight: 700;
+  padding: .5rem 1.2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: var(--transition);
+}
+.license-badge:hover { background:rgba(245,166,35,.22); }
+
+.brand-img-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .75rem;
+}
+.brand-img-item {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 16px;
+  padding: 1.25rem;
+  text-align: center;
+}
+.brand-img-item .num {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+}
+.brand-img-item .lbl { font-size: .78rem; color:var(--text-muted); margin-top:.3rem; }
+
+/* ===== TIMELINE ===== */
+.timeline-section {
+  padding: 5.5rem 0;
+  background: var(--bg-section);
+}
+
+.timeline {
+  position: relative;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.timeline::before {
+  content:'';
+  position:absolute;
+  left:50%;
+  top:28px; bottom:28px;
+  width:2px;
+  background: linear-gradient(180deg,var(--gold),var(--blue-light),var(--gold));
+  transform:translateX(-50%);
+}
+
+.tl-item {
+  display: flex;
+  margin-bottom: 3rem;
+  position: relative;
+}
+.tl-item.left  { justify-content:flex-end; padding-right:calc(50% + 2.5rem); }
+.tl-item.right { justify-content:flex-start; padding-left:calc(50% + 2.5rem); }
+
+.tl-dot {
+  position: absolute;
+  left: 50%;
+  top: 1.5rem;
+  width: 16px; height:16px;
+  background: var(--white);
+  border: 3px solid var(--blue-light);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 4px rgba(41,182,246,.15);
+  transition: var(--transition);
+}
+.tl-dot.gold {
+  background: var(--gold);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 5px rgba(245,166,35,.2);
+}
+
+.tl-content {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.75rem;
+  max-width: 340px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(176,214,240,.35);
+  transition: var(--transition);
+}
+.tl-content:hover { box-shadow:var(--shadow-lg); transform:translateY(-3px); }
+
+.tl-year {
+  display: inline-block;
+  background: linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color: var(--darker);
+  font-size: .75rem;
+  font-weight: 800;
+  padding: .2rem .75rem;
+  border-radius: 50px;
+  margin-bottom: .6rem;
+  letter-spacing: .05em;
+}
+
+.tl-content h3 { font-size:1rem; font-weight:700; color:var(--dark); margin-bottom:.5rem; }
+.tl-content p  { font-size:.87rem; color:#6a8aaa; line-height:1.65; }
+
+/* ===== VALUES ===== */
+.values-section {
+  padding: 5.5rem 0;
+  background: linear-gradient(160deg,var(--darker) 0%,#0d3a6e 100%);
+  color: var(--white);
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.value-card {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--radius);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: var(--transition);
+}
+.value-card:hover { background:rgba(255,255,255,.1); transform:translateY(-4px); }
+
+.value-icon {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+.value-card h4 { font-size:1.05rem; font-weight:700; color:var(--white); margin-bottom:.5rem; }
+.value-card p  { font-size:.87rem; color:var(--text-muted); line-height:1.65; }
+
+/* ===== LONDON CAB HIGHLIGHT ===== */
+.cab-highlight {
+  padding: 5rem 2rem;
+  background: var(--white);
+  text-align: center;
+}
+.cab-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  background: linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color: var(--darker);
+  font-weight: 800;
+  font-size: 1rem;
+  padding: .75rem 2rem;
+  border-radius: 50px;
+  margin-bottom: 1.75rem;
+  box-shadow: 0 4px 20px rgba(245,166,35,.35);
+}
+.cab-highlight h2 { font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:900; color:var(--dark); margin-bottom:1rem; }
+.cab-highlight p  { color:#6a8aaa; max-width:600px; margin:0 auto; font-size:.95rem; line-height:1.8; }
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo-link">
+      <span class="logo-text">CA<span>BB</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="travel.html">แค็บบ์พาเที่ยว</a></li>
+      <li><a href="services.html">บริการแค็บบ์</a></li>
+      <li><a href="join.html">ร่วมงานกับแค็บบ์</a></li>
+      <li><a href="story.html">เรื่องราวของแค็บบ์</a></li>
+      <li><a href="contact.html">ติดต่อแค็บบ์</a></li>
+      <li><a href="login.html" class="nav-cta">เข้าสู่ระบบ</a></li>
+    </ul>
+    <button class="menu-toggle" id="menuToggle" aria-label="เมนู">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="story-hero">
+  <div style="position:relative;z-index:1;width:100%;">
+    <div class="container">
+      <div class="brand-card fade-in">
+        <div>
+          <div class="page-tag" style="margin-bottom:1.1rem;"><i class="fa-solid fa-book-open"></i> เรื่องราวของแค็บบ์</div>
+          <div class="brand-title">เอเชีย<br><span>แค็บบ์</span></div>
+          <p class="brand-sub">
+            จากต้นทางถึงปลายทาง<br>
+            แบรนด์เดียวในไทยที่ถือครอง License รถแท็กซี่ London Black Cab
+          </p>
+          <a href="#timeline" class="license-badge">
+            <i class="fa-solid fa-trophy"></i>
+            London Black Cab · Official License Thailand · เรียนรู้เพิ่มเติม →
+          </a>
+        </div>
+        <div class="brand-img-block">
+          <div class="brand-img-item fade-in">
+            <div class="num">2018</div>
+            <div class="lbl">ปีที่ก่อตั้ง</div>
+          </div>
+          <div class="brand-img-item fade-in">
+            <div class="num">30+</div>
+            <div class="lbl">จังหวัด</div>
+          </div>
+          <div class="brand-img-item fade-in">
+            <div class="num">5K+</div>
+            <div class="lbl">คนขับ</div>
+          </div>
+          <div class="brand-img-item fade-in">
+            <div class="num">98%</div>
+            <div class="lbl">ความพึงพอใจ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LONDON CAB BADGE ===== -->
+<section class="cab-highlight" id="about">
+  <div class="cab-badge">
+    <i class="fa-solid fa-award"></i>
+    London Black Cab Official License — Thailand
+  </div>
+  <h2>"เพราะคุณคือคนสำคัญของเรา"</h2>
+  <p>
+    CABB เป็นแบรนด์บริการแท็กซี่ VIP เจ้าแรกและเจ้าเดียวในประเทศไทย
+    ที่ได้รับสิทธิ์ใช้งาน London Black Cab อย่างเป็นทางการ
+    ด้วยรถที่กว้างขวาง สะอาด และปลอดภัย เราพร้อมพาคุณไปทุกที่
+    ด้วยมาตรฐานระดับสากล
+  </p>
+</section>
+
+<!-- ===== TIMELINE ===== -->
+<section class="timeline-section" id="timeline">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">เส้นทางของเรา</span>
+      <h2>จากจุดเริ่มต้นเล็ก ๆ<br>สู่แบรนด์ที่คนไทยไว้วางใจ</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item left fade-in">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <span class="tl-year">2018</span>
+          <h3>🚖 จุดเริ่มต้น</h3>
+          <p>CABB ก่อตั้งด้วยแนวคิด "การเดินทางที่ดีสร้างประสบการณ์ที่ดี" พร้อมรถ 3 คันและคนขับ 5 คน</p>
+        </div>
+      </div>
+
+      <div class="tl-item right fade-in">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <span class="tl-year">2019</span>
+          <h3>🏆 รับ London Black Cab License</h3>
+          <p>ได้รับสิทธิ์ใช้งาน London Black Cab อย่างเป็นทางการในประเทศไทย เจ้าแรกและเจ้าเดียว</p>
+        </div>
+      </div>
+
+      <div class="tl-item left fade-in">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <span class="tl-year">2020</span>
+          <h3>✈️ ขยายบริการสนามบิน</h3>
+          <p>เปิดบริการรับ-ส่งสนามบินครบทุกแห่ง และเปิดตัวบริการทัวร์ท่องเที่ยวครบวงจร</p>
+        </div>
+      </div>
+
+      <div class="tl-item right fade-in">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <span class="tl-year">2021</span>
+          <h3>🏥 พาร์ทเนอร์โรงพยาบาล</h3>
+          <p>ได้รับความไว้วางใจจากโรงพยาบาลบำรุงราษฎร์และโรงพยาบาลชั้นนำให้เป็นผู้ให้บริการ VIP Taxi</p>
+        </div>
+      </div>
+
+      <div class="tl-item left fade-in">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <span class="tl-year">2022</span>
+          <h3>📱 เปิดตัวแอปพลิเคชัน</h3>
+          <p>CABB App ให้ลูกค้าจองบริการได้ตลอด 24 ชั่วโมง ติดตาม GPS real-time และชำระเงินออนไลน์</p>
+        </div>
+      </div>
+
+      <div class="tl-item right fade-in">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <span class="tl-year">2024</span>
+          <h3>🗺️ ครบ 30 จังหวัด</h3>
+          <p>ขยายเครือข่ายครบ 30 จังหวัด มีคนขับกว่า 5,000 คน และลูกค้าไว้วางใจมากกว่า 120,000 เที่ยว</p>
+        </div>
+      </div>
+
+      <div class="tl-item left fade-in">
+        <div class="tl-dot gold"></div>
+        <div class="tl-content" style="border-color:var(--gold);box-shadow:0 8px 32px rgba(245,166,35,.15);">
+          <span class="tl-year">2026 — ปัจจุบัน</span>
+          <h3>🌏 มุ่งสู่อาเซียน</h3>
+          <p>ขยายบริการสู่ประเทศในอาเซียน พร้อมเปิดตัวบริการ EV Cab และระบบ Carbon Offset สำหรับลูกค้า</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VALUES ===== -->
+<section class="values-section">
+  <div class="container">
+    <div class="section-header" style="color:var(--white);">
+      <span class="section-tag" style="background:rgba(245,166,35,.15);color:var(--gold-light);">คุณค่าของเรา</span>
+      <h2 style="color:var(--white);">สิ่งที่ทำให้แค็บบ์แตกต่าง</h2>
+      <p style="color:var(--text-muted);">ทุกการตัดสินใจของเราอยู่บนรากฐาน 3 คุณค่าหลัก</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card fade-in">
+        <span class="value-icon">🛡️</span>
+        <h4>ความปลอดภัยสูงสุด</h4>
+        <p>ตรวจสอบประวัติคนขับทุกคน รถผ่านมาตรฐาน ประกันภัยครบ พร้อมระบบ SOS ฉุกเฉิน</p>
+      </div>
+      <div class="value-card fade-in">
+        <span class="value-icon">⏰</span>
+        <h4>ตรงต่อเวลาเสมอ</h4>
+        <p>เราเคารพเวลาของคุณ ระบบติดตาม GPS real-time แจ้งเตือนเมื่อรถใกล้ถึง</p>
+      </div>
+      <div class="value-card fade-in">
+        <span class="value-icon">💎</span>
+        <h4>ประสบการณ์พรีเมียม</h4>
+        <p>London Black Cab กว้างขวาง สะอาด พร้อมสิ่งอำนวยความสะดวกครบครัน</p>
+      </div>
+      <div class="value-card fade-in">
+        <span class="value-icon">🤝</span>
+        <h4>ใส่ใจทุกรายละเอียด</h4>
+        <p>ทีมซัพพอร์ต 24 ชั่วโมง ดูแลทุกความต้องการของคุณตั้งแต่จองถึงปลายทาง</p>
+      </div>
+      <div class="value-card fade-in">
+        <span class="value-icon">🌱</span>
+        <h4>รับผิดชอบต่อสิ่งแวดล้อม</h4>
+        <p>โครงการ Carbon Offset และแผนขยาย EV Fleet เพื่ออนาคตที่ยั่งยืน</p>
+      </div>
+      <div class="value-card fade-in">
+        <span class="value-icon">📊</span>
+        <h4>โปร่งใสทุกขั้นตอน</h4>
+        <p>ราคาชัดเจนก่อนจอง ไม่มีค่าใช้จ่ายแอบแฝง ใบเสร็จครบถ้วน</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span class="footer-logo">CA<span>BB</span></span>
+      <p class="footer-tagline">บริการแท็กซี่วีไอพี London Black Cab<br>แบรนด์เดียวในไทยที่ถือครอง Official License</p>
+      <div class="social-row">
+        <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" class="social-btn"><i class="fa-brands fa-line"></i></a>
+        <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>เมนูหลัก</h4>
+      <ul>
+        <li><a href="travel.html">แค็บบ์พาเที่ยว</a></li>
+        <li><a href="services.html">บริการแค็บบ์</a></li>
+        <li><a href="join.html">ร่วมงานกับแค็บบ์</a></li>
+        <li><a href="story.html">เรื่องราวของแค็บบ์</a></li>
+        <li><a href="contact.html">ติดต่อแค็บบ์</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>ติดต่อ</h4>
+      <ul>
+        <li><a href="tel:020000000"><i class="fa-solid fa-phone"></i> 02-XXX-XXXX</a></li>
+        <li><a href="mailto:hello@cabb.co.th"><i class="fa-solid fa-envelope"></i> hello@cabb.co.th</a></li>
+        <li><a href="#"><i class="fa-solid fa-location-dot"></i> กรุงเทพฯ และปริมณฑล</a></li>
+        <li><a href="#"><i class="fa-solid fa-clock"></i> ทุกวัน 06:00–22:00</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 CABB Asia. สงวนลิขสิทธิ์ทั้งหมด</div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="กลับด้านบน">
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>แค็บบ์พาเที่ยว — CABB</title>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="main.css">
+<style>
+/* ===== HERO ===== */
+.travel-hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 9rem 2rem 5rem;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(160deg, rgba(6,32,80,.88) 0%, rgba(10,42,94,.75) 100%),
+    url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80') center/cover no-repeat;
+  color: var(--white);
+}
+
+.travel-hero::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: radial-gradient(ellipse at 65% 60%, rgba(245,166,35,.12) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+.hero-inner { position:relative; z-index:1; max-width:780px; }
+
+.trip-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  background: rgba(245,166,35,.12);
+  border: 1px solid rgba(245,166,35,.3);
+  color: var(--gold-light);
+  font-size: .82rem;
+  font-weight: 600;
+  padding: .35rem 1rem;
+  border-radius: 50px;
+  margin-bottom: 1.25rem;
+}
+.trip-count { color: var(--gold); font-weight:800; }
+
+.hero-inner h1 {
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1.1rem;
+}
+.hero-inner h1 em { color:var(--gold); font-style:normal; }
+
+.hero-inner p {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  max-width: 540px;
+}
+
+/* Booking box */
+.booking-box {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(16px);
+  border-radius: 20px;
+  padding: 1.75rem 2rem;
+  max-width: 680px;
+}
+
+.booking-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 1rem;
+  align-items: end;
+}
+
+.booking-field { display:flex; flex-direction:column; gap:.3rem; }
+.booking-field label {
+  font-size: .75rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.55);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.booking-field input,
+.booking-field select {
+  padding: .65rem 1rem;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 10px;
+  color: var(--white);
+  font-family: 'Prompt',sans-serif;
+  font-size: .9rem;
+  outline: none;
+  transition: border-color .2s;
+}
+.booking-field input::placeholder { color: rgba(255,255,255,.4); }
+.booking-field input:focus,
+.booking-field select:focus { border-color: var(--gold); }
+.booking-field select option { background: var(--darker); }
+
+.booking-btn {
+  background: linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color: var(--darker);
+  border: none;
+  border-radius: 10px;
+  padding: .72rem 1.5rem;
+  font-family: 'Prompt',sans-serif;
+  font-weight: 800;
+  font-size: .9rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .25s;
+  box-shadow: 0 4px 16px rgba(245,166,35,.35);
+}
+.booking-btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,166,35,.45); }
+
+/* ===== PROMOTIONS ===== */
+.section { padding: 5.5rem 0; }
+.section.bg-sky { background: var(--bg-section); }
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.promo-img-wrap {
+  height: 220px;
+  position: relative;
+  overflow: hidden;
+  background: #f0f4f8;
+}
+.promo-img-wrap img {
+  width:100%; height:100%;
+  object-fit:cover;
+  transition: transform .45s ease;
+}
+.card:hover .promo-img-wrap img { transform:scale(1.06); }
+
+.promo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, transparent 40%, rgba(6,32,80,.5) 100%);
+}
+
+.discount-badge {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  background: linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color: var(--darker);
+  font-weight: 900;
+  font-size: 1.2rem;
+  padding: .5rem .9rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(245,166,35,.4);
+  z-index: 1;
+}
+.discount-badge small { font-size: .72rem; display:block; font-weight:700; text-align:center; }
+
+/* ===== PACKAGES ===== */
+.pkg-img-wrap {
+  height: 220px;
+  position: relative;
+  overflow: hidden;
+}
+.pkg-bg-1 { background: linear-gradient(160deg,#1A1A2E 0%,#2d1b69 100%); }
+.pkg-bg-2 { background: linear-gradient(160deg,#0F3460 0%,#1565C0 100%); }
+.pkg-bg-3 { background: linear-gradient(160deg,#1a3a2e 0%,#1a7a4f 100%); }
+
+.pkg-img-wrap img {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:.6;
+  transition: transform .45s ease;
+}
+.card:hover .pkg-img-wrap img { transform:scale(1.06); }
+
+.pkg-name-label {
+  position: absolute;
+  bottom: 1.1rem; left: 1.25rem;
+  font-weight: 900;
+  font-size: 1.25rem;
+  color: rgba(255,255,255,.9);
+  letter-spacing: 2px;
+  z-index: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,.4);
+}
+
+.pkg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(255,255,255,.06) 0%, rgba(0,0,0,.35) 100%);
+}
+
+.prices-row { display:flex; gap:.5rem; flex-wrap:wrap; margin:.75rem 0; }
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo-link">
+      <span class="logo-text">CA<span>BB</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="travel.html">แค็บบ์พาเที่ยว</a></li>
+      <li><a href="services.html">บริการแค็บบ์</a></li>
+      <li><a href="join.html">ร่วมงานกับแค็บบ์</a></li>
+      <li><a href="story.html">เรื่องราวของแค็บบ์</a></li>
+      <li><a href="contact.html">ติดต่อแค็บบ์</a></li>
+      <li><a href="login.html" class="nav-cta">เข้าสู่ระบบ</a></li>
+    </ul>
+    <button class="menu-toggle" id="menuToggle" aria-label="เมนู">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+</body>
+</html>

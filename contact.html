@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ติดต่อแค็บบ์ — CABB</title>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="main.css">
+<style>
+/* ===== HERO ===== */
+.contact-hero {
+  min-height: 48vh;
+  display: flex;
+  align-items: center;
+  padding: 9rem 2rem 4.5rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg,#062050 0%,#0d3a6e 100%);
+  color: var(--white);
+}
+.contact-hero::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: radial-gradient(ellipse at 75% 50%, rgba(245,166,35,.1) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+/* ===== CONTACT GRID ===== */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 3.5rem;
+  align-items: start;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* INFO SIDE */
+.info-card {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 2.25rem;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(176,214,240,.35);
+}
+
+.info-card h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 1.75rem;
+  padding-bottom: .75rem;
+  border-bottom: 2px solid var(--bg-section);
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.ci-icon {
+  width: 44px; height:44px;
+  background: linear-gradient(135deg,rgba(21,101,192,.1),rgba(41,182,246,.07));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--blue);
+  flex-shrink: 0;
+}
+
+.ci-text strong {
+  display: block;
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: .15rem;
+}
+.ci-text span,
+.ci-text a {
+  font-size: .9rem;
+  color: #6a8aaa;
+  text-decoration: none;
+  transition: color .2s;
+}
+.ci-text a:hover { color: var(--blue); }
+
+/* Quick action buttons */
+.quick-btns {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  margin-top: 2rem;
+}
+
+.quick-btn {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  padding: .8rem 1.25rem;
+  border-radius: 12px;
+  font-family:'Prompt',sans-serif;
+  font-weight: 700;
+  font-size: .9rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--transition);
+  border: none;
+}
+
+.quick-btn.line    { background:#06C755; color:#fff; }
+.quick-btn.phone   { background:var(--blue); color:#fff; }
+.quick-btn.fb      { background:#1877F2; color:#fff; }
+
+.quick-btn:hover   { transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,.15); }
+.quick-btn-icon    { width:30px; height:30px; background:rgba(255,255,255,.2); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
+
+/* Social row */
+.social-row-light { display:flex; gap:.65rem; margin-top:1.5rem; }
+.social-btn-light {
+  width: 38px; height:38px;
+  border-radius: 50%;
+  background: var(--bg-section);
+  border: 1px solid rgba(21,101,192,.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue);
+  font-size: .95rem;
+  text-decoration: none;
+  transition: var(--transition);
+}
+.social-btn-light:hover { background:var(--blue); color:#fff; transform:translateY(-3px); }
+
+/* FORM SIDE */
+.form-card {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(176,214,240,.35);
+}
+
+.form-card h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: .4rem;
+}
+.form-card .sub {
+  font-size: .87rem;
+  color: #6a8aaa;
+  margin-bottom: 1.75rem;
+}
+
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  margin-bottom: .9rem;
+}
+.form-group label {
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: .03em;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: .72rem 1rem;
+  border: 1.5px solid #d8e8f4;
+  border-radius: 10px;
+  font-family:'Prompt',sans-serif;
+  font-size: .9rem;
+  color: var(--dark);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  background: var(--white);
+  width: 100%;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(245,166,35,.1);
+}
+.form-group textarea { resize:vertical; }
+
+.form-submit {
+  width: 100%;
+  padding: .9rem;
+  background: linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color: var(--darker);
+  border: none;
+  border-radius: 50px;
+  font-family:'Prompt',sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 16px rgba(245,166,35,.35);
+  margin-top: .5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+}
+.form-submit:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(245,166,35,.45); }
+.form-submit:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+
+.form-feedback {
+  text-align: center;
+  font-size: .9rem;
+  font-weight: 600;
+  margin-top: .75rem;
+  min-height: 1.4em;
+}
+.form-feedback.success { color: #27ae60; }
+.form-feedback.error   { color: #e74c3c; }
+
+/* ===== FAQ ===== */
+.faq-section { padding:5.5rem 0; background:var(--bg-section); }
+.faq-list { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:.75rem; }
+
+.faq-item {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid rgba(176,214,240,.4);
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(2,136,209,.06);
+}
+
+.faq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.5rem;
+  background: none;
+  border: none;
+  font-family:'Prompt',sans-serif;
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--dark);
+  cursor: pointer;
+  text-align: left;
+  transition: background .2s;
+  gap: 1rem;
+}
+.faq-q:hover { background: var(--bg-section); }
+.faq-q .arrow { font-size:.85rem; color:var(--blue); transition:transform .25s; flex-shrink:0; }
+.faq-item.open .faq-q .arrow { transform:rotate(180deg); }
+
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s ease, padding .35s ease;
+  padding: 0 1.5rem;
+  font-size: .9rem;
+  color: #6a8aaa;
+  line-height: 1.7;
+}
+.faq-item.open .faq-a { max-height: 300px; padding: 0 1.5rem 1.25rem; }
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo-link">
+      <span class="logo-text">CA<span>BB</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="travel.html">แค็บบ์พาเที่ยว</a></li>
+      <li><a href="services.html">บริการแค็บบ์</a></li>
+      <li><a href="join.html">ร่วมงานกับแค็บบ์</a></li>
+      <li><a href="story.html">เรื่องราวของแค็บบ์</a></li>
+      <li><a href="contact.html">ติดต่อแค็บบ์</a></li>
+      <li><a href="login.html" class="nav-cta">เข้าสู่ระบบ</a></li>
+    </ul>
+    <button class="menu-toggle" id="menuToggle" aria-label="เมนู">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="contact-hero">
+  <div style="position:relative;z-index:1;max-width:640px;">
+    <div class="page-tag"><i class="fa-solid fa-comments"></i> ติดต่อแค็บบ์</div>
+    <h1 style="font-size:clamp(2.2rem,4.5vw,3.2rem);font-weight:900;line-height:1.15;margin-bottom:1rem;">
+      พร้อมช่วยเหลือคุณ<br><span style="color:var(--gold);">ทุกเมื่อ ทุกที่</span>
+    </h1>
+    <p style="color:var(--text-muted);font-size:1rem;line-height:1.8;">
+      มีคำถาม อยากจองบริการ หรือต้องการข้อมูลเพิ่มเติม?<br>
+      ทีมงาน CABB พร้อมตอบทุกวัน 06:00–22:00 น.
+    </p>
+  </div>
+</section>
+
+<!-- ===== MAIN CONTACT ===== -->
+<section style="padding:5.5rem 0;">
+  <div class="container">
+    <div class="contact-layout">
+
+      <!-- LEFT INFO -->
+      <div class="fade-in">
+        <div class="info-card">
+          <h3>📍 ข้อมูลติดต่อ</h3>
+
+          <div class="contact-item">
+            <div class="ci-icon"><i class="fa-solid fa-phone"></i></div>
+            <div class="ci-text">
+              <strong>โทรศัพท์</strong>
+              <a href="tel:020000000">02-XXX-XXXX</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="ci-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div class="ci-text">
+              <strong>อีเมล</strong>
+              <a href="mailto:hello@cabb.co.th">hello@cabb.co.th</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="ci-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="ci-text">
+              <strong>สำนักงานใหญ่</strong>
+              <span>กรุงเทพมหานคร ประเทศไทย</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="ci-icon"><i class="fa-solid fa-clock"></i></div>
+            <div class="ci-text">
+              <strong>เวลาทำการ</strong>
+              <span>ทุกวัน 06:00 – 22:00 น.</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="ci-icon"><i class="fa-solid fa-hospital"></i></div>
+            <div class="ci-text">
+              <strong>จุดบริการประจำ</strong>
+              <span>รพ.บำรุงราษฎร์ · ประตูทางเข้า ชั้น G</span>
+            </div>
+          </div>
+
+          <!-- Quick contact buttons -->
+          <div class="quick-btns">
+            <a href="https://line.me/ti/p/cabb" class="quick-btn line">
+              <div class="quick-btn-icon"><i class="fa-brands fa-line"></i></div>
+              แชทผ่าน LINE @cabb
+            </a>
+            <a href="tel:020000000" class="quick-btn phone">
+              <div class="quick-btn-icon"><i class="fa-solid fa-phone"></i></div>
+              โทรหาเรา 02-XXX-XXXX
+            </a>
+            <a href="https://fb.me/cabb.th" class="quick-btn fb">
+              <div class="quick-btn-icon"><i class="fa-brands fa-facebook-messenger"></i></div>
+              Facebook Messenger
+            </a>
+          </div>
+
+          <!-- Social -->
+          <p style="font-size:.8rem;font-weight:700;color:var(--dark);margin-top:1.5rem;margin-bottom:.65rem;">ติดตามเราได้ที่</p>
+          <div class="social-row-light">
+            <a href="#" class="social-btn-light" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-btn-light" aria-label="LINE"><i class="fa-brands fa-line"></i></a>
+            <a href="#" class="social-btn-light" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-btn-light" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#" class="social-btn-light" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT FORM -->
+      <div class="form-card fade-in">
+        <h3>✉️ ส่งข้อความหาเรา</h3>
+        <p class="sub">เราจะตอบกลับภายใน 1–2 ชั่วโมงในเวลาทำการ</p>
+
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label>ชื่อ *</label>
+              <input type="text" id="fname" placeholder="ชื่อของคุณ" required>
+            </div>
+            <div class="form-group">
+              <label>นามสกุล</label>
+              <input type="text" placeholder="นามสกุล">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>อีเมล *</label>
+              <input type="email" id="email" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+              <label>เบอร์โทรศัพท์</label>
+              <input type="tel" placeholder="08X-XXX-XXXX">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>เรื่องที่ต้องการติดต่อ</label>
+            <select>
+              <option value="">-- เลือกหัวข้อ --</option>
+              <option>สอบถามราคาและบริการ</option>
+              <option>จองบริการล่วงหน้า</option>
+              <option>ปัญหาจากการใช้บริการ</option>
+              <option>สมัครเป็นคนขับ</option>
+              <option>พาร์ทเนอร์ธุรกิจ</option>
+              <option>อื่น ๆ</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>ข้อความ *</label>
+            <textarea id="message" placeholder="บอกเล่าสิ่งที่คุณต้องการ..." rows="4" required></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="formBtn">
+            ส่งข้อความ <i class="fa-solid fa-paper-plane"></i>
+          </button>
+          <p class="form-feedback" id="formFeedback"></p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">คำถามที่พบบ่อย</span>
+      <h2>FAQ</h2>
+      <p>รวมคำถามที่ลูกค้าถามบ่อย หากยังไม่พบคำตอบ ติดต่อเราได้เลย</p>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          CABB ให้บริการในพื้นที่ไหนบ้าง?
+          <span class="arrow"><i class="fa-solid fa-chevron-down"></i></span>
+        </button>
+        <div class="faq-a">
+          CABB ให้บริการครอบคลุมกว่า 30 จังหวัดทั่วไทย รวมถึงกรุงเทพฯ และปริมณฑล พัทยา หัวหิน เชียงใหม่ และอีกหลายจังหวัด
+          เราขยายพื้นที่บริการอย่างต่อเนื่อง
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          จองบริการล่วงหน้าได้นานแค่ไหน?
+          <span class="arrow"><i class="fa-solid fa-chevron-down"></i></span>
+        </button>
+        <div class="faq-a">
+          สามารถจองล่วงหน้าได้สูงสุด 30 วัน และจองขั้นต่ำ 2 ชั่วโมงก่อนเวลารับ สำหรับบริการ VIP แนะนำจองล่วงหน้าอย่างน้อย 24 ชั่วโมง
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ชำระเงินได้ช่องทางไหนบ้าง?
+          <span class="arrow"><i class="fa-solid fa-chevron-down"></i></span>
+        </button>
+        <div class="faq-a">
+          รับชำระด้วยเงินสด บัตรเครดิต/เดบิต QR Code PromptPay และ e-Wallet ทุกประเภท ทั้งจ่ายล่วงหน้าและชำระหลังใช้บริการ
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ยกเลิกการจองได้ไหม? มีค่าธรรมเนียมหรือเปล่า?
+          <span class="arrow"><i class="fa-solid fa-chevron-down"></i></span>
+        </button>
+        <div class="faq-a">
+          ยกเลิกฟรีหากยกเลิกก่อน 2 ชั่วโมง สำหรับ VIP Service ยกเลิกฟรีก่อน 4 ชั่วโมง
+          หากยกเลิกภายในระยะเวลาที่กำหนดจะคิดค่าธรรมเนียม 20% ของราคาที่จอง
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          London Black Cab คืออะไร?
+          <span class="arrow"><i class="fa-solid fa-chevron-down"></i></span>
+        </button>
+        <div class="faq-a">
+          London Black Cab คือรถแท็กซี่ประจำกรุงลอนดอน สหราชอาณาจักร โดดเด่นด้วยขนาดใหญ่ ภายในกว้างขวาง รองรับผู้โดยสารได้ 5–6 คน
+          CABB เป็นแบรนด์เดียวในไทยที่ได้รับ Official License ให้ใช้งานรถรุ่นนี้
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span class="footer-logo">CA<span>BB</span></span>
+      <p class="footer-tagline">บริการแท็กซี่วีไอพี London Black Cab<br>แบรนด์เดียวในไทยที่ถือครอง Official License</p>
+      <div class="social-row">
+        <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" class="social-btn"><i class="fa-brands fa-line"></i></a>
+        <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>เมนูหลัก</h4>
+      <ul>
+        <li><a href="travel.html">แค็บบ์พาเที่ยว</a></li>
+        <li><a href="services.html">บริการแค็บบ์</a></li>
+        <li><a href="join.html">ร่วมงานกับแค็บบ์</a></li>
+        <li><a href="story.html">เรื่องราวของแค็บบ์</a></li>
+        <li><a href="contact.html">ติดต่อแค็บบ์</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>ติดต่อ</h4>
+      <ul>
+        <li><a href="tel:020000000"><i class="fa-solid fa-phone"></i> 02-XXX-XXXX</a></li>
+        <li><a href="mailto:hello@cabb.co.th"><i class="fa-solid fa-envelope"></i> hello@cabb.co.th</a></li>
+        <li><a href="#"><i class="fa-solid fa-location-dot"></i> กรุงเทพฯ และปริมณฑล</a></li>
+        <li><a href="#"><i class="fa-solid fa-clock"></i> ทุกวัน 06:00–22:00</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 CABB Asia. สงวนลิขสิทธิ์ทั้งหมด</div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="กลับด้านบน">
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
+<script src="main.js"></script>
+<script>
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>

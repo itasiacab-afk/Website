@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>บริการแค็บบ์ — CABB</title>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="main.css">
+<style>
+/* ===== HERO ===== */
+.services-hero {
+  min-height: 55vh;
+  display: flex;
+  align-items: center;
+  padding: 9rem 2rem 5rem;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(160deg, rgba(6,32,80,.9) 0%, rgba(13,49,107,.82) 100%),
+    url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1600&q=80') center/cover no-repeat;
+  color: var(--white);
+}
+.services-hero::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: radial-gradient(ellipse at 30% 70%, rgba(41,182,246,.1) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+/* ===== SERVICE CARDS GRID ===== */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.svc-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 2rem 1.75rem;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(176,214,240,.35);
+  border-top: 3px solid var(--blue);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.svc-card::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--blue-light));
+  opacity:0;
+  transition: opacity .25s;
+}
+.svc-card:hover::before { opacity:1; }
+.svc-card:hover { transform:translateY(-6px); box-shadow:var(--shadow-lg); }
+
+.svc-icon {
+  width: 58px;
+  height: 58px;
+  background: linear-gradient(135deg, rgba(21,101,192,.1) 0%, rgba(41,182,246,.08) 100%);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--blue);
+  margin-bottom: 1.25rem;
+  transition: var(--transition);
+}
+.svc-card:hover .svc-icon {
+  background: linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color: var(--darker);
+}
+
+.svc-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--dark); margin-bottom: .5rem; }
+.svc-card p  { font-size: .87rem; color: #6a8aaa; line-height:1.65; margin-bottom:1.25rem; }
+
+.svc-tag {
+  display: inline-block;
+  background: var(--bg-section);
+  color: var(--blue);
+  font-size: .72rem;
+  font-weight: 700;
+  padding: .2rem .7rem;
+  border-radius: 50px;
+  border: 1px solid rgba(21,101,192,.15);
+}
+
+/* ===== COVERAGE STRIP ===== */
+.coverage {
+  background: linear-gradient(135deg, var(--darker) 0%, #0d3a6e 100%);
+  color: var(--white);
+  padding: 3.5rem 2rem;
+  text-align: center;
+}
+.coverage h3 { font-size:1.4rem; font-weight:800; margin-bottom:.75rem; }
+.coverage p  { color:var(--text-muted); font-size:.95rem; margin-bottom:1.75rem; }
+
+.city-pills { display:flex; flex-wrap:wrap; justify-content:center; gap:.65rem; }
+.city-pill {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.14);
+  color: rgba(255,255,255,.85);
+  padding: .4rem 1.1rem;
+  border-radius: 50px;
+  font-size: .85rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+.city-pill:hover { background:rgba(245,166,35,.15); border-color:var(--gold); color:var(--gold); }
+
+/* ===== PROCESS STEPS ===== */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+}
+.steps-grid::before {
+  content:'';
+  position:absolute;
+  top: 28px;
+  left: calc(12.5% + 20px);
+  right: calc(12.5% + 20px);
+  height: 2px;
+  background: linear-gradient(90deg,var(--gold),var(--blue-light),var(--gold));
+  z-index:0;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.step-num {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color: var(--darker);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 16px rgba(245,166,35,.35);
+}
+.step h4 { font-size:.95rem; font-weight:700; color:var(--dark); margin-bottom:.4rem; }
+.step p  { font-size:.82rem; color:#6a8aaa; line-height:1.6; }
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo-link">
+      <span class="logo-text">CA<span>BB</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="travel.html">แค็บบ์พาเที่ยว</a></li>
+      <li><a href="services.html">บริการแค็บบ์</a></li>
+      <li><a href="join.html">ร่วมงานกับแค็บบ์</a></li>
+      <li><a href="story.html">เรื่องราวของแค็บบ์</a></li>
+      <li><a href="contact.html">ติดต่อแค็บบ์</a></li>
+      <li><a href="login.html" class="nav-cta">เข้าสู่ระบบ</a></li>
+    </ul>
+    <button class="menu-toggle" id="menuToggle" aria-label="เมนู">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="services-hero">
+  <div style="position:relative;z-index:1;max-width:680px;">
+    <div class="page-tag"><i class="fa-solid fa-shield-check"></i> บริการแค็บบ์</div>
+    <h1 style="font-size:clamp(2.2rem,4.5vw,3.4rem);font-weight:900;line-height:1.15;margin-bottom:1rem;">
+      บริการเดินทางระดับ VIP<br><span style="color:var(--gold);">ครอบคลุมทุกความต้องการ</span>
+    </h1>
+    <p style="color:var(--text-muted);font-size:1rem;line-height:1.8;">
+      ไม่ว่าจะเป็นการเดินทางส่วนตัว กลุ่มใหญ่ หรือองค์กร<br>
+      แค็บบ์มีโซลูชันที่ตอบโจทย์คุณทุกรูปแบบ
+    </p>
+  </div>
+</section>
+
+<!-- ===== SERVICES GRID ===== -->
+<section style="padding:5.5rem 0;background:var(--bg-section);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">บริการของเรา</span>
+      <h2>เลือกบริการที่เหมาะกับคุณ</h2>
+      <p>ทุกบริการออกแบบมาเพื่อประสบการณ์เดินทางที่ดีที่สุด</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="svc-card fade-in">
+        <div class="svc-icon"><i class="fa-solid fa-car"></i></div>
+        <h3>รถรับ-ส่ง VIP</h3>
+        <p>บริการรถรับ-ส่งส่วนตัวด้วย London Black Cab ตรงเวลา ปลอดภัย คนขับมืออาชีพ</p>
+        <span class="svc-tag">พร้อมทันที</span>
+      </div>
+
+      <div class="svc-card fade-in">
+        <div class="svc-icon"><i class="fa-solid fa-plane-departure"></i></div>
+        <h3>รับ-ส่งสนามบิน</h3>
+        <p>ครบทุกสนามบินทั่วไทย ติดตาม flight real-time ไม่พลาดเที่ยวบิน</p>
+        <span class="svc-tag">24 ชั่วโมง</span>
+      </div>
+
+      <div class="svc-card fade-in">
+        <div class="svc-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+        <h3>ทัวร์ท่องเที่ยว</h3>
+        <p>แพ็กเกจทัวร์ครบวงจร ทั้งในและต่างจังหวัด พร้อมไกด์และแผนการเดินทาง</p>
+        <span class="svc-tag">หลายเส้นทาง</span>
+      </div>
+
+      <div class="svc-card fade-in">
+        <div class="svc-icon"><i class="fa-solid fa-bus"></i></div>
+        <h3>รถเช่าหมู่คณะ</h3>
+        <p>รถบัสและรถตู้สำหรับกรุ๊ปทัวร์ งานองค์กร และงานพิเศษต่าง ๆ</p>
+        <span class="svc-tag">สำหรับกลุ่ม</span>
+      </div>
+
+      <div class="svc-card fade-in">
+        <div class="svc-icon"><i class="fa-solid fa-hospital"></i></div>
+        <h3>รับ-ส่งโรงพยาบาล</h3>
+        <p>บริการพิเศษสำหรับผู้ป่วยและผู้สูงอายุ ปลอดภัย ตรงเวลา บำรุงราษฎร์และอื่น ๆ</p>
+        <span class="svc-tag">ดูแลพิเศษ</span>
+      </div>
+
+      <div class="svc-card fade-in">
+        <div class="svc-icon"><i class="fa-solid fa-building-columns"></i></div>
+        <h3>บริการองค์กร</h3>
+        <p>โซลูชันการเดินทางสำหรับธุรกิจ พร้อมระบบจัดการและออกใบแจ้งหนี้</p>
+        <span class="svc-tag">สำหรับธุรกิจ</span>
+      </div>
+
+      <div class="svc-card fade-in">
+        <div class="svc-icon"><i class="fa-solid fa-star"></i></div>
+        <h3>VIP Premium</h3>
+        <p>บริการระดับหรูสำหรับลูกค้า VIP พร้อมน้ำดื่มและสิ่งอำนวยความสะดวกพรีเมียม</p>
+        <span class="svc-tag">เอ็กซ์คลูซีฟ</span>
+      </div>
+
+      <div class="svc-card fade-in">
+        <div class="svc-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <h3>รับ-ส่งนักเรียน</h3>
+        <p>บริการรับ-ส่งนักเรียนที่ผ่านการตรวจสอบประวัติ ปลอดภัย ตรงต่อเวลา</p>
+        <span class="svc-tag">ปลอดภัย</span>
+      </div>
+
+      <div class="svc-card fade-in">
+        <div class="svc-icon"><i class="fa-solid fa-champagne-glasses"></i></div>
+        <h3>งานพิธีและอีเวนต์</h3>
+        <p>บริการรถหรูสำหรับงานแต่งงาน งาน gala dinner และงานพิธีสำคัญ</p>
+        <span class="svc-tag">งานพิเศษ</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section style="padding:5.5rem 0;">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">วิธีใช้งาน</span>
+      <h2>จองง่าย ใช้ได้เลย</h2>
+      <p>เพียง 4 ขั้นตอน ได้รถ VIP มารับถึงหน้าบ้าน</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step fade-in">
+        <div class="step-num">1</div>
+        <h4>เลือกบริการ</h4>
+        <p>เลือกรูปแบบการเดินทางที่ต้องการจากเว็บไซต์หรือแอป</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num">2</div>
+        <h4>กรอกรายละเอียด</h4>
+        <p>ระบุต้นทาง ปลายทาง วันเวลา และจำนวนผู้โดยสาร</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num">3</div>
+        <h4>ยืนยันการจอง</h4>
+        <p>รับการยืนยันผ่าน SMS และอีเมลพร้อมข้อมูลคนขับ</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-num">4</div>
+        <h4>เดินทางสบาย</h4>
+        <p>คนขับมารับตรงเวลา ติดตาม GPS แบบ real-time ได้ตลอด</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COVERAGE ===== -->
+<section class="coverage">
+  <h3>ให้บริการทั่วไทย</h3>
+  <p>ครอบคลุม 30+ จังหวัด พร้อมขยายเพิ่มอย่างต่อเนื่อง</p>
+  <div class="city-pills">
+    <span class="city-pill">🏙️ กรุงเทพฯ</span>
+    <span class="city-pill">🌊 พัทยา</span>
+    <span class="city-pill">🏖️ หัวหิน</span>
+    <span class="city-pill">🌴 ชะอำ</span>
+    <span class="city-pill">🏭 ระยอง</span>
+    <span class="city-pill">🌿 กาญจนบุรี</span>
+    <span class="city-pill">🏔️ เชียงใหม่</span>
+    <span class="city-pill">🌺 เชียงราย</span>
+    <span class="city-pill">🏛️ อยุธยา</span>
+    <span class="city-pill">🎡 สมุทรปราการ</span>
+    <span class="city-pill">🏢 นนทบุรี</span>
+    <span class="city-pill">🌾 ปทุมธานี</span>
+    <span class="city-pill">+ อีกกว่า 20 จังหวัด</span>
+  </div>
+  <div style="margin-top:2rem;">
+    <a href="contact.html" class="btn btn-gold">จองบริการเลย <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span class="footer-logo">CA<span>BB</span></span>
+      <p class="footer-tagline">บริการแท็กซี่วีไอพี London Black Cab<br>แบรนด์เดียวในไทยที่ถือครอง Official License</p>
+      <div class="social-row">
+        <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" class="social-btn" aria-label="LINE"><i class="fa-brands fa-line"></i></a>
+        <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="social-btn" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>เมนูหลัก</h4>
+      <ul>
+        <li><a href="travel.html">แค็บบ์พาเที่ยว</a></li>
+        <li><a href="services.html">บริการแค็บบ์</a></li>
+        <li><a href="join.html">ร่วมงานกับแค็บบ์</a></li>
+        <li><a href="story.html">เรื่องราวของแค็บบ์</a></li>
+        <li><a href="contact.html">ติดต่อแค็บบ์</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>ติดต่อ</h4>
+      <ul>
+        <li><a href="tel:020000000"><i class="fa-solid fa-phone"></i> 02-XXX-XXXX</a></li>
+        <li><a href="mailto:hello@cabb.co.th"><i class="fa-solid fa-envelope"></i> hello@cabb.co.th</a></li>
+        <li><a href="#"><i class="fa-solid fa-location-dot"></i> กรุงเทพฯ และปริมณฑล</a></li>
+        <li><a href="#"><i class="fa-solid fa-clock"></i> ทุกวัน 06:00–22:00</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 CABB Asia. สงวนลิขสิทธิ์ทั้งหมด</div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="กลับด้านบน">
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
+<script src="main.js"></script>
+</body>
+</html>

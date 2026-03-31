@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l \"/c/Users/Pattarapong/Downloads/cabb_fixed_logo \\(2\\)/cabb_fixed_logo \\(2\\).html\")"
+    ]
+  }
+}
